@@ -3,6 +3,7 @@ package ru.vetukov.spec.java.level01.lifecycle;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 public class OtherActivity extends AppCompatActivity {
@@ -39,4 +40,35 @@ public class OtherActivity extends AppCompatActivity {
 
         super.onBackPressed();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("happy", "SecondActivity onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("happy", "SecondActivity onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("happy", "SecondActivity onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("happy", "SecondActivity onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("happy", "SecondActivity onDestroy");
+    }
+
 }
