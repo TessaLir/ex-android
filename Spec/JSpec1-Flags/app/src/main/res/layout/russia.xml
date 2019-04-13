@@ -5,16 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:layout_height="0dp"
+    <View
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        layout="@layout/russia" />
+        android:background="#FFF"/>
 
-    <include
-        android:layout_height="0dp"
+    <View
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        layout="@layout/italy" />
+        android:background="#00F"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F00"/>
 
 </LinearLayout>
