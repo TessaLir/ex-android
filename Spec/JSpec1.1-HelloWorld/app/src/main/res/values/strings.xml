@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">HelloWorld</string>
+    <string name="main_cb_text">CheckBox</string>
+    <string name="main_button_check_text">CHECK</string>
+    <string name="main_button_uncheck_text">UNCHECK</string>
+</resources>
