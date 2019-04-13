@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/main.add"
+        android:title="Add"
+        android:icon="@drawable/hummer"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/main.battary"
+        android:title="Battary"
+        android:icon="@drawable/battary"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/main.train"
+        android:title="Train"
+        android:icon="@drawable/train"
+        app:showAsAction="ifRoom" />
+
+</menu>
