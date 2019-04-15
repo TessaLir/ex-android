@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -37,10 +38,12 @@ public class SaintAdapter extends ArrayAdapter {
         TextView name = view.findViewById(R.id.item_text);
         TextView dob = view.findViewById(R.id.item_dob);
         TextView dod = view.findViewById(R.id.item_dod);
+        RatingBar rating = view.findViewById(R.id.item_rating);
 
         name.setText(saint.getmName());
         dob.setText(saint.getmDob());
         dod.setText(saint.getmDod());
+        rating.setRating((saint.getmRating()));
 
         return view;
     }
