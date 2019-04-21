@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardview_margin">5dp</dimen>
+    <dimen name="item_margin_left">16dp</dimen>
+    <dimen name="main_margin_resysler">16dp</dimen>
+</resources>
