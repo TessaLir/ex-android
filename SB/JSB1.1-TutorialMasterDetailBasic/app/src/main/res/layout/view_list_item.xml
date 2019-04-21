@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    xmlns:spp="http://schemas.android.com/apk/res-auto"
+    spp:elevation="5dp"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_gravity="center_vertical"
+        android:drawableStart="@drawable/blue_square"
+        android:drawableEnd="@drawable/ic_chevron_right_black_48dp"
+        android:drawablePadding="@dimen/cardview_padding_drawable"
+        android:gravity="center_vertical"
+        android:text="@string/main_item_name" />
+
+</android.support.v7.widget.CardView>
