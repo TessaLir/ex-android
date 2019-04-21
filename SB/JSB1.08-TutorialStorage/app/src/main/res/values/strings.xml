@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TutorialStorage</string>
+    <string name="main_button_asset_text">Asset</string>
+    <string name="main_button_res_text">Resource</string>
+    <string name="main_button_res_file_text">File</string>
+    <string name="main_storage_text">Storage</string>
 </resources>
