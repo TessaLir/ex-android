@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_list_item">5dp</dimen>
+    <dimen name="cardview_height">56dp</dimen>
+    <dimen name="cardview_elevation">5dp</dimen>
+    <dimen name="cardview_padding_text">15dp</dimen>
+    <dimen name="detail_all_padding">5dp</dimen>
+    <dimen name="detail_text_padding">10dp</dimen>
+</resources>
