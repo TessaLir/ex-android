@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HomeFragment</string>
+    <string name="main_btn_next_fragment_text">SUBMIT</string>
+    <string name="main_btn_back_fragment_text">BACK</string>
+</resources>
