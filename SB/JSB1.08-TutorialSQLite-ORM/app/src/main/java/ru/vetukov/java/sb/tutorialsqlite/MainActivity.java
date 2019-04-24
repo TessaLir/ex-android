@@ -2,9 +2,6 @@ package ru.vetukov.java.sb.tutorialsqlite;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +9,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private final String[] mUserNames = new String[] {
             "Vsevolod", "Irina", "Piter", "Harry"
     };
 
-    private final SQLiteDatabase db = DataBaseHelper.getInstance().getWritableDatabase();
+    private final DataBaseHelper mHelper = DataBaseHelper.getInstance();
 
     private RecyclerView mUserList;
     private UserListAdapter mAdapter;
@@ -52,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-//            db.rawQuery("DELETE FROM `" + ContractUser.TABLE_NAME + "`", null);
-            db.delete(ContractUser.TABLE_NAME, null, null);
+            try {
+                Dao<User, Long> dao = mHelper.getDao(User.class);
+                dao.deleteBuilder().delete();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return null;
         }
 
@@ -67,38 +73,44 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            for (final String userName : mUserNames) {
-//                db.rawQuery("INSERT INTO `" + ContractUser.TABLE_NAME + "` (`" +
-//                           ContractUser.COLOMN_NAME_FNAME + "`) VALUES (?)",
-//                           new String[] {userName});
-                final ContentValues cv = new ContentValues();
-                cv.put(ContractUser.COLOMN_NAME_FNAME, userName);
-                db.insert(ContractUser.TABLE_NAME,null,cv);
+
+            try {
+                Dao<User, Long> dao = mHelper.getDao(User.class);
+
+                for (final String userName : mUserNames) {
+
+                    User user = new User();
+                    user.setmFName(userName);
+                    dao.create(user);
+                }
+                return null;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
             new SelectTask().execute();
         }
     }
 
-    private class SelectTask extends AsyncTask<Void, Void, Cursor> {
+    private class SelectTask extends AsyncTask<Void, Void, List<User>> {
 
         @Override
-        protected Cursor doInBackground(Void... voids) {
-//            Cursor cursor = db.rawQuery("SELECT * FROM `" + ContractUser.TABLE_NAME + "`", null);
-            Cursor cursor = db.query(ContractUser.TABLE_NAME,null,null,null,null,null,null);
-            cursor.moveToFirst();
-            return cursor;
+        protected List<User> doInBackground(Void... params) {
+            try {
+                Dao<User, Long> dao = mHelper.getDao(User.class);
+
+                return dao.queryForAll();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         @Override
-        protected void onPostExecute(Cursor cursor) {
-            super.onPostExecute(cursor);
-            mAdapter.setmCursor(cursor);
+        protected void onPostExecute(List<User> users) {
+            mAdapter.setData(users);
         }
     }
 
