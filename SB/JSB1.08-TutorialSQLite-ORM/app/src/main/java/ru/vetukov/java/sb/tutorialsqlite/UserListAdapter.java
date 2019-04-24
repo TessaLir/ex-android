@@ -1,7 +1,6 @@
 package ru.vetukov.java.sb.tutorialsqlite;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHolder> {
 
     private final LayoutInflater mInflater;
-    private Cursor mCursor;
+    private List<User> mUserList;
 
     public UserListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -28,22 +29,17 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        mCursor.moveToPosition(position);
-        holder.userTextView.setText(mCursor.getString(mCursor.getColumnIndex(ContractUser.COLOMN_NAME_FNAME)));
+        holder.userTextView.setText(mUserList.get(position).getmFName());
     }
 
     @Override
     public int getItemCount() {
-        return mCursor == null ? 0 : mCursor.getCount();
+        return mUserList == null ? 0 : mUserList.size();
     }
 
-    public void setmCursor(Cursor cursor) {
-        final Cursor oldCursor = mCursor;
-        this.mCursor = cursor;
+    public void setData(List<User> data) {
+        this.mUserList = data;
         notifyDataSetChanged();
-        if (oldCursor != null) {
-            oldCursor.close();
-        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
