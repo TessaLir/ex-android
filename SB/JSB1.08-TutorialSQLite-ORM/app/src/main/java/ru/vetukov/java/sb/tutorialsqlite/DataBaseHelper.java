@@ -2,35 +2,40 @@ package ru.vetukov.java.sb.tutorialsqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+import java.sql.SQLException;
+
+public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static DataBaseHelper sInstance;
 
     private static final String NAME = "database.db";
     private static final int VERSION = 1;
 
-    public static void createInstanc(@Nullable Context context) {
+    public static void createInstanc(Context context) {
         sInstance = new DataBaseHelper(context);
     }
 
     public static DataBaseHelper getInstance() { return sInstance; }
 
-    private DataBaseHelper(@Nullable Context context) {
+    private DataBaseHelper(Context context) {
         super(context, NAME, null, VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE   `" + ContractUser.TABLE_NAME + "`  (" +
-                    "   `" + ContractUser.COLOMN_NAME_ID        + "`   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    "   `" + ContractUser.COLOMN_NAME_FNAME     + "`   TEXT)");
+    public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTable(connectionSource, User.class);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
         // На будущее
     }
 }
