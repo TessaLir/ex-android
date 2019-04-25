@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TutorialPreferences</string>
+    <string name="main_cb_check_text">Some option</string>
+</resources>
