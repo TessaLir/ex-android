@@ -10,4 +10,12 @@ public class SimpleCalculator {
         return a - b;
     }
 
+    public int mult(final int a, final int b) {
+        return a * b;
+    }
+
+    public int div(final int a, final int b) {
+        return a / b;
+    }
+
 }

@@ -43,4 +43,20 @@
         android:text="Sub"
         tools:ignore="HardcodedText"/>
 
+    <Button
+        android:id="@+id/main.btn.mult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Multy"
+        tools:ignore="HardcodedText"/>
+
+    <Button
+        android:id="@+id/main.btn.div"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Division"
+        tools:ignore="HardcodedText"/>
+
 </LinearLayout>

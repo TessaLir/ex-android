@@ -44,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main_btn_sub :
                 printResult(mSimpleCalculator.sub(a,b));
                 break;
+            case R.id.main_btn_mult :
+                printResult(mSimpleCalculator.mult(a,b));
+                break;
+            case R.id.main_btn_div :
+                printResult(mSimpleCalculator.div(a,b));
+                break;
         }
     }
 
