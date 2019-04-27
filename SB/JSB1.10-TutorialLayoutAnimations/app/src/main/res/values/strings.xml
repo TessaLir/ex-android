@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TutorialLayoutAnimations</string>
+    <string name="main_btn_remove_text">REMOVE</string>
+    <string name="main_btn_add_text">ADD</string>
 </resources>
