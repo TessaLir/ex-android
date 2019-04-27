@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.j256.ormlite.dao.Dao;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mTvOutput;
     private Button mBtnClear;
     private Button mBtnInsert;
+    private ProgressBar mPBProgress;
+    private ScrollView mSVView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvOutput = findViewById(R.id.main_tv_output);
         mBtnClear = findViewById(R.id.main_btn_right);
         mBtnInsert = findViewById(R.id.main_btn_left);
+        mPBProgress = findViewById(R.id.main_pb_progress);
+        mSVView = findViewById(R.id.main_sv_view);
 
         mBtnInsert.setOnClickListener(this);
         mBtnClear.setOnClickListener(this);
@@ -87,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private class InsertTask extends AsyncTask<Void, Void, Void> {
 
+
+
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -116,6 +124,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private class SelectTask extends AsyncTask<Void, Void, String> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mSVView.setVisibility(View.INVISIBLE);
+            mPBProgress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected String doInBackground(Void... voids) {
             try {
                 StringBuilder result = new StringBuilder();
@@ -128,6 +143,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                           emp.getmPhone(),
                                                                           emp.getmEmail()));
                 }
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 return result.toString();
             } catch (SQLException e) {
@@ -139,6 +159,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(String line) {
             super.onPostExecute(line);
             mTvOutput.setText(line);
+            mPBProgress.setVisibility(View.INVISIBLE);
+            mSVView.setVisibility(View.VISIBLE);
         }
     }
 

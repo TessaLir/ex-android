@@ -8,6 +8,16 @@
     android:padding="@dimen/main_padding"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/main.pb.progress"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.left"/>
+
     <Button
         android:id="@+id/main.btn.left"
         android:layout_width="0dp"
@@ -29,9 +39,11 @@
         android:text="@string/main_btn_crear_text" />
 
     <ScrollView
+        android:id="@+id/main.sv.view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/main_btn_margin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
