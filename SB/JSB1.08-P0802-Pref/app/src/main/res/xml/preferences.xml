@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SettingsActivity">
+
+    <CheckBoxPreference
+        android:key="@string/pref_checkbox_key"
+        android:defaultValue="false"
+        android:summary="@string/pref_checkbox_summary"
+        android:title="@string/pref_checkbox_title"/>
+
+    <ListPreference
+        android:key="@string/pref_list_key"
+        android:defaultValue="@string/pref_list_default"
+        android:entries="@array/listRoleArray"
+        android:entryValues="@array/listRoleValues"
+        android:summary="@string/pref_list_summary"
+        android:title="@string/pref_list_title">
+
+    </ListPreference>
+
+</PreferenceScreen>

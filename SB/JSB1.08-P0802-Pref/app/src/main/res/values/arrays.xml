@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="listRoleArray">
+        <item>Rookie</item>
+        <item>User</item>
+        <item>Admin</item>
+        <item>SuperMario</item>
+    </string-array>
+
+    <string-array name="listRoleValues">
+        <item>Rookie</item>
+        <item>User</item>
+        <item>Admin</item>
+        <item>SuperMario</item>
+    </string-array>
+
+</resources>
