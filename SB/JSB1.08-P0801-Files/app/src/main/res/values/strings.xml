@@ -1,0 +1,4 @@
+<resources>
+	<string name="app_name">AndroidProject 8.1 - File System</string>
+    <string name="msg_copying_done">Copying done</string>
+</resources>
