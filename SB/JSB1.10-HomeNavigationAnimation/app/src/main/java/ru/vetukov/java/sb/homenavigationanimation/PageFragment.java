@@ -43,6 +43,14 @@ public class PageFragment extends Fragment implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        mNumber = getArguments().getInt(NUMBER_ARGUMENT_KEY);
+
+        if (savedInstanceState == null) {
+            mNumber = getArguments().getInt(NUMBER_ARGUMENT_KEY);
+            mColor = getArguments().getInt(COLOR_INT);
+        } else {
+            mNumber = savedInstanceState.getInt(NUMBER_ARGUMENT_KEY);
+            mColor = savedInstanceState.getInt(COLOR_INT);
+        }
     }
 
     @Nullable
@@ -57,6 +65,9 @@ public class PageFragment extends Fragment implements View.OnClickListener {
         mBtnNext = view.findViewById(R.id.fr_page_next);
         mBtnPrev = view.findViewById(R.id.fr_page_prev);
 
+        mTvNumber.setBackgroundColor(mColor);
+        mTvNumber.setText(String.valueOf(mNumber));
+
         return view;
     }
 
@@ -70,17 +81,6 @@ public class PageFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState == null) {
-            mNumber = getArguments().getInt(NUMBER_ARGUMENT_KEY);
-            mColor = getArguments().getInt(COLOR_INT);
-        } else {
-            mNumber = savedInstanceState.getInt(NUMBER_ARGUMENT_KEY);
-            mColor = savedInstanceState.getInt(COLOR_INT);
-        }
-
-        mTvNumber.setBackgroundColor(mColor);
-        mTvNumber.setText(String.valueOf(mNumber));
 
     }
 

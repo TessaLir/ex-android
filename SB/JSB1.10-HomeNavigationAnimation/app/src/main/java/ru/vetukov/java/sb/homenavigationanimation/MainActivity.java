@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements PageFragment.List
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .setCustomAnimations(R.anim.in, R.anim.out, R.anim.in, R.anim.out)
+                .setCustomAnimations(R.anim.in, R.anim.out, R.anim.in_bek, R.anim.out_bek)
                 .replace(R.id.main_container, PageFragment.newInstance(number))
                 .commit();
     }
