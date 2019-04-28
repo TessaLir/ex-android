@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HomeViewAnimation</string>
+    <string name="main_btn_xml_text">XML</string>
+    <string name="main_btn_code_text">CODE</string>
 </resources>
