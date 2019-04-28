@@ -31,7 +31,7 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/main.view.buttons_container">
@@ -40,10 +40,10 @@
             android:id="@+id/main.view.list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:orientation="vertical"
+            android:gravity="left"
+            android:orientation="horizontal"
             android:animateLayoutChanges="true"/>
 
-    </ScrollView>
+    </HorizontalScrollView>
 
 </RelativeLayout>
