@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HomeAsyncTask</string>
+    <string name="main_btn_submit_text">Run Calculate!</string>
+    <string name="main_tv_result_text">Result: N/A</string>
+</resources>
