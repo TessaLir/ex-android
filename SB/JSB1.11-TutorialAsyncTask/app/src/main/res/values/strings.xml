@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TutorialAsyncTask</string>
+    <string name="main_content_result_text">Result: N/A</string>
+    <string name="main_content_button_text">Calculate</string>
+</resources>
