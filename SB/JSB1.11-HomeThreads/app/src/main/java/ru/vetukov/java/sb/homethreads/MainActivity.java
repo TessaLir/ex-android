@@ -1,5 +1,6 @@
 package ru.vetukov.java.sb.homethreads;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,14 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTvText;
 
+    @SuppressLint("SetTextI18n")
+    private Runnable uiRunnable = () -> mTvText.setText("Hello world");
+
+    private Runnable threadRunnable = () -> {
+        Log.d("!!!", "New thread: " + Thread.currentThread().getName());
+        mHandler.post(uiRunnable);
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,19 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
 
         Log.d("!!!", "Main thread: " + Thread.currentThread().getName());
-        Thread th = new Thread(new myRunnable());
+        Thread th = new Thread(threadRunnable);
         th.start();
 
-    }
-
-    private class myRunnable implements Runnable {
-
-        @Override
-        public void run() {
-            Log.d("!!!", "New thread: " + Thread.currentThread().getName());
-            mHandler.post(() -> mTvText.setText("Здасте")) ;
-        }
-        
     }
 
 }
