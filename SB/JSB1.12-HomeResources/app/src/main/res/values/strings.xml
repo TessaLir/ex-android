@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">HomeResources</string>
+    <string name="main_btn_two">ДИЧЬ 2</string>
+    <string name="main_btn_one">ДИЧЬ 1</string>
+    <string name="main_text_title">Какой-то текст</string>
+    <string name="main_text_text">Каждый веб-разработчик знает, что такое текст-«рыба». Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.</string>
+    <string name="main_btn_three">КНОПОЧКА</string>
+    <string name="main_menu_setting">Settings</string>
+    <string name="main_menu_what">Item</string>
+    <string name="main_menu_something">Something</string>
+    <string name="main_menu_spmthing_two">Somthing two</string>
+</resources>
