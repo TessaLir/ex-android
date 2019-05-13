@@ -1,6 +1,7 @@
 package ru.vetukov.sb.homepicasso;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,12 +18,14 @@ import com.example.valen.homepicasso.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoListFragment extends Fragment {
+public class PhotoListFragment extends Fragment implements PhotoListAdapter.OnItemClickListener {
 
     private static PhotoListFragment instance;
 
     private RecyclerView recycler;
+    List<Photo> photos = new ArrayList<>();
 
+    // Тут использовал синглетон
     public static PhotoListFragment getInstance() {
         if (instance == null) instance = new PhotoListFragment();
         return instance;
@@ -38,24 +41,18 @@ public class PhotoListFragment extends Fragment {
         recycler =  view.findViewById(R.id.recycler_list);
         recycler.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
-        PhotoListAdapter adapter = new PhotoListAdapter(getPhotos());
+        getPhotos();
+        PhotoListAdapter adapter = new PhotoListAdapter(photos);
+        adapter.setOnItemClickListener(this);
         recycler.setAdapter(adapter);
-
-        View header = LayoutInflater.from(getContext()).inflate(
-                R.layout.fragment_photo_info, recycler, false);
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Header",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return view;
     }
 
-    private List<Photo> getPhotos() {
-        List<Photo> photos = new ArrayList<>();
+    private void getPhotos() {
+
+        // Если не сделать очистку листа, он будет постоянно добавлять ссылки в наш лист...
+        photos.clear();
 
         photos.add(new Photo("https://avatars.mds.yandex.net/get-pdb/51720/f9b1f1cc-e3d8-4781-a5ee-2d1bd229cdb6/s1200?webp=false"));
         photos.add(new Photo("https://im0-tub-ru.yandex.net/i?id=b161a5ded696999f31e1d6f782c8bb34&n=13&exp=1"));
@@ -82,6 +79,15 @@ public class PhotoListFragment extends Fragment {
         photos.add(new Photo("https://upload.wikimedia.org/wikipedia/commons/1/12/NGC5529_Galaxy_from_the_Mount_Lemmon_SkyCenter_Schulman_Telescope_courtesy_Adam_Block.jpg"));
         photos.add(new Photo("https://upload.wikimedia.org/wikipedia/commons/2/29/NGC5850_Galaxy_from_the_Mount_Lemmon_SkyCenter_Schulman_Telescope_courtesy_Adam_Block.jpg"));
 
-        return photos;
+    }
+
+    @Override
+    public void onItemClick(View itemView, int position) {
+        Photo photo = photos.get(position);
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, PhotoItemFragment.getInstance(photo.getImageSRC()))
+                .addToBackStack(null)
+                .commit();
     }
 }
