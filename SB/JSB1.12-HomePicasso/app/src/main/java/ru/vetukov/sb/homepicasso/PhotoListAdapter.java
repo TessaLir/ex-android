@@ -17,6 +17,17 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
     private LayoutInflater mInflater;
     private List<Photo> photos;
 
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    private OnItemClickListener clickListener;
+
+    void setOnItemClickListener(OnItemClickListener listener)
+    {
+        this.clickListener = listener;
+    }
+
     public PhotoListAdapter(List<Photo> photos) {
         this.photos = photos;
     }
@@ -25,7 +36,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mInflater = LayoutInflater.from(parent.getContext());
-        return new ViewHolder(mInflater.inflate(R.layout.view_photo_item, parent, false));
+        return new ViewHolder(mInflater.inflate(R.layout.view_photo_item, parent,false), clickListener);
     }
 
     @Override
@@ -44,11 +55,28 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
         return photos == null ? 0 : photos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private OnItemClickListener clickListener;
+
         ImageView image;
-        public ViewHolder(@NonNull View view) {
+        ViewHolder(@NonNull View view, OnItemClickListener listener) {
             super(view);
             image = view.findViewById(R.id.item_image);
+            clickListener = listener;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            clickListener.onItemClick(itemView, position);
+                        }
+                    }
+                }
+            });
         }
     }
 
