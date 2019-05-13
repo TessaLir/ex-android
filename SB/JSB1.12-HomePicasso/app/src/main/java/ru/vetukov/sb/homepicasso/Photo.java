@@ -1,4 +1,4 @@
-package com.example.valen.homepicasso;
+package ru.vetukov.sb.homepicasso;
 
 public class Photo {
 

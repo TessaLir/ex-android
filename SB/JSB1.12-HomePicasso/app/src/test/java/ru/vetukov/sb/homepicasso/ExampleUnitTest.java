@@ -1,4 +1,4 @@
-package com.example.valen.homepicasso;
+package ru.vetukov.sb.homepicasso;
 
 import org.junit.Test;
 

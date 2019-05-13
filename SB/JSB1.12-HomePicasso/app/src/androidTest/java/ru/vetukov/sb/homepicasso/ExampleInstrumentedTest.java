@@ -1,4 +1,4 @@
-package com.example.valen.homepicasso;
+package ru.vetukov.sb.homepicasso;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
