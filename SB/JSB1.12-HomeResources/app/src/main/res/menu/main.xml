@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item"
+        android:title="@string/main_menu_what"
+        android:icon="@drawable/ic_mult_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_hidden_item"
+        android:icon="@drawable/ic_drive_24dp"
+        android:title="@string/main_menu_setting"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_hidden_cwa"
+        android:title="@string/main_menu_something"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_hidden_cwa_cwa"
+        android:title="@string/main_menu_spmthing_two"
+        app:showAsAction="never" />
+
+</menu>
