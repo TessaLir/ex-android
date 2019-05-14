@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.valen.homepicasso.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.ViewHolder> {
 
@@ -40,14 +43,25 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Picasso mPicasso = Picasso.get();
         mPicasso.cancelRequest(holder.image);
         holder.image.setImageBitmap(null);
         mPicasso
                 .load(photos.get(position).getImageSRC())
+                .placeholder(R.drawable.thecat)
                 .resizeDimen(R.dimen.image_size, R.dimen.image_size)
-                .into(holder.image);
+                .into(holder.image, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.progressBar.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
     }
 
     @Override
@@ -61,9 +75,12 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
         private OnItemClickListener clickListener;
 
         ImageView image;
+        ProgressBar progressBar;
+
         ViewHolder(@NonNull View view, OnItemClickListener listener) {
             super(view);
             image = view.findViewById(R.id.item_image);
+            progressBar = view.findViewById(R.id.item_progress);
             clickListener = listener;
 
             itemView.setOnClickListener(new View.OnClickListener() {
