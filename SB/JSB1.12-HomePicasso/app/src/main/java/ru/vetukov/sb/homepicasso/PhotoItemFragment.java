@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.valen.homepicasso.R;
 import com.squareup.picasso.Picasso;
@@ -17,6 +18,7 @@ public class PhotoItemFragment extends Fragment {
     public static final String IMAGE_SRC = "PhotoItemFragment.IMAGE_SRC";
 
     private ImageView mImage;
+    private ProgressBar mProgrress;
 
     public static PhotoItemFragment getInstance(String link) {
         PhotoItemFragment instance = new PhotoItemFragment();
@@ -43,8 +45,9 @@ public class PhotoItemFragment extends Fragment {
                                                                 // думал должно работать...
                 .into(mImage);
 
+        mImage.setVisibility(View.VISIBLE);
+
         return view;
     }
-
 
 }
