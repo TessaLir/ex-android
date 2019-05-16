@@ -4,7 +4,7 @@ import android.net.Uri;
 
 public class CitiesContract {
 
-    public static final String AUTHORITY = "com.example.androidtutorialcontentprovider.provider";
+    public static final String AUTHORITY = "ru.vetukov.java.tutorialcontentprovider.provider";
     public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
     private CitiesContract() {}
