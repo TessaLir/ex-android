@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HomeServices</string>
+    <string name="main_et_text_one">Первое число</string>
+    <string name="main_et_text_two">Второе число</string>
+    <string name="main_btn_sum">ADD</string>
+    <string name="main_btn_dev">DEV</string>
+    <string name="main_btn_min">MIN</string>
+    <string name="main_btn_mult">MULT</string>
 </resources>
