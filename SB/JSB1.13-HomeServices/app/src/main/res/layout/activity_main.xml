@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/main.btn.dev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_btn_dev"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.mult"/>
+
+    <Button
+        android:id="@+id/main.btn.mult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_btn_mult"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.min"/>
+
+    <Button
+        android:id="@+id/main.btn.min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_btn_min"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.sum"/>
+
+    <Button
+        android:id="@+id/main.btn.sum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_btn_sum"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <EditText
+        android:id="@+id/main.et.one"
+        style="@style/MyEditText"
+        android:hint="@string/main_et_text_one"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/main.et.two"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.dev"/>
+
+    <EditText
+        android:id="@+id/main.et.two"
+        style="@style/MyEditText"
+        android:hint="@string/main_et_text_two"
+        app:layout_constraintLeft_toRightOf="@id/main.et.one"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.dev" />
+
+    <TextView
+        android:id="@+id/main.tv.result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/main_tv_result"
+        tools:text="RESULT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main.et.one" />
+
+</android.support.constraint.ConstraintLayout>
