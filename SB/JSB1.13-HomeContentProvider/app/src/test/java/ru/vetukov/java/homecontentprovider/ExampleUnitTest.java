@@ -1,4 +1,4 @@
-package ru.vetukov.java.myapplication;
+package ru.vetukov.java.homecontentprovider;
 
 import org.junit.Test;
 
