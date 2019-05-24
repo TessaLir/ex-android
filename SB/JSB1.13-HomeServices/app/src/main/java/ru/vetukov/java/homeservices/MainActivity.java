@@ -13,6 +13,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/*
+Урок 1. Зачем нужны сервисы. Started Service, Bound Service, IntentService
+Реализовать простой калькулятор в Bound Service.
+
+Тут в общем так же сделал все в основном как на уроке.
+Добавил свой сервис CalcBoundService плюс сделал некий интерфейс Калькулятора...
+
+Единственное что не стал запорачиваться с дробной частью, у меня только целая часть в приложении.
+по хорошему. можно добавить, но ээто уже больше JAVA :)
+
+*/
+
 public class MainActivity
                             extends AppCompatActivity
                             implements View.OnClickListener {
