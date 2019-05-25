@@ -1,16 +1,17 @@
-package ru.vetukov.java.core;
+package ru.vetukov.java.core.interfaces;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 
+//TODO: изменть тип BigDecimal на готовый класс по работе с деньгами.
 public interface Storage {
 
     String getName();
 
     // Получение баланса остатка
-    Map<Currency, BigDecimal> getCurrwncyAmount();              // Остаток по каждой доступной валюте в хранилище
+    Map<Currency, BigDecimal> getCurrencyAmount();              // Остаток по каждой доступной валюте в хранилище
     BigDecimal getAmount(Currency currency);                    // Остаток во определенной валюте
     BigDecimal getApproxAmount(Currency currency);              // Примерный остаток в переводе денег в одну валюту
 
