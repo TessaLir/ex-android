@@ -7,30 +7,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ru.vetukov.java.core.abstracts.AbstractTreeNode;
 import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
 import ru.vetukov.java.core.interfaces.Storage;
 
-public class DefaultStorage implements Storage {
+public class DefaultStorage extends AbstractTreeNode implements Storage {
 
-    private String name;
 
     // Инициализируем пустые коллекции, потому что хоть одна валюта, но будет.
     private Map<Currency, BigDecimal> currencyAmount = new HashMap<>();
     private List<Currency> currencyList = new ArrayList<>();
 
-    public DefaultStorage(){}
+    public DefaultStorage() {}
+
     public DefaultStorage(String name) {
-        this.name = name;
+        super(name);
     }
+
+    public DefaultStorage(long id, String name) {
+        super(id, name);
+    }
+
     public DefaultStorage(List<Currency> currencyList, Map<Currency, BigDecimal> currencyAmount, String name) {
+        super(name);
         this.currencyList = currencyList;
         this.currencyAmount = currencyAmount;
-        this.name = name;
     }
     public DefaultStorage(Map<Currency, BigDecimal> currencyAmount) {
         this.currencyAmount = currencyAmount;
     }
+
 
     @Override
     public Map<Currency, BigDecimal> getCurrencyAmount() {
@@ -48,15 +55,6 @@ public class DefaultStorage implements Storage {
 
     public void setAcailableCurrencies(List<Currency> acailableCurrencies) {
         this.currencyList = acailableCurrencies;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 
