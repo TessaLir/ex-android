@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 public class Post extends BaseObj {
 
     @SerializedName("userId")
-    long mUserId;
+    public long mUserId;
 
     @SerializedName("id")
-    long mId;
+    public long mId;
 
     @SerializedName("title")
-    String mTitle;
+    public String mTitle;
 
     @SerializedName("body")
-    String mBody;
+    public String mBody;
 
     public Post(long mUserId, long mId, String mTitle, String mBody) {
         this.mUserId = mUserId;
