@@ -1,11 +1,14 @@
 package ru.vetukov.sb.java.homeretrofit;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.vetukov.sb.java.homeretrofit.databinding.ListItemBinding;
 
 /*
 Урок 2. RetroFit. Загрузка и использование JSON с сервера
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new PostsAdapter();
         mPostsList.setLayoutManager(new LinearLayoutManager(this));
         mPostsList.setAdapter(mAdapter);
+        mPostsList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -145,17 +151,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(mInflater.inflate(android.R.layout.simple_list_item_1, parent, false));
+            final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            final ListItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.list_item, parent, false);
+            return new ViewHolder(binding);
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             BaseObj obj = mObjects.get(position);
             if (obj instanceof Post) {
-                holder.mTvTitle.setText(((Post)obj).mTitle);
+                holder.binding.setUser(null);
+                holder.binding.setPost((Post)obj);
             }
             if (obj instanceof User) {
-                holder.mTvTitle.setText(((User)obj).mName);
+                holder.binding.setPost(null);
+                holder.binding.setUser((User)obj);
             }
         }
 
@@ -171,11 +181,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         public class ViewHolder extends  RecyclerView.ViewHolder {
 
-            public final TextView mTvTitle;
+            ListItemBinding binding;
 
-            public ViewHolder(@NonNull View view) {
-                super(view);
-                mTvTitle = view.findViewById(android.R.id.text1);
+            public ViewHolder(@NonNull ListItemBinding binding) {
+                super(binding.getRoot());
+                this.binding = binding;
+                binding.itemText.setMaxLines(2);
+                binding.itemText.setEllipsize(TextUtils.TruncateAt.END);
             }
         }
     }
