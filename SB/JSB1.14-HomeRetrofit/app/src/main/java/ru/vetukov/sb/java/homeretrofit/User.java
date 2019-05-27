@@ -5,25 +5,25 @@ import com.google.gson.annotations.SerializedName;
 public class User extends BaseObj {
 
     @SerializedName("id")
-    long mId;
+    public long mId;
 
     @SerializedName("name")
-    String mName;
+    public String mName;
 
     @SerializedName("email")
-    String mEmail;
+    public String mEmail;
 
     @SerializedName("phone")
-    String mPhone;
+    public String mPhone;
 
     @SerializedName("website")
-    String mWebsite;
+    public String mWebsite;
 
     @SerializedName("company")
-    Company mCompany;
+    public Company mCompany;
 
     @SerializedName("address")
-    Company mAddress;
+    public Company mAddress;
 
     private class Company {
 
