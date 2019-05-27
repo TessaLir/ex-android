@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <data>
+        <variable
+            name="post"
+            type="ru.vetukov.sb.java.homeretrofit.Post" />
+        <variable
+            name="user"
+            type="ru.vetukov.sb.java.homeretrofit.User" />
+    </data>
+
+    <TextView
+        android:id="@+id/item_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text='@{(post == null ? "" : post.mTitle) + (user == null ? "" : user.mName)}'/>
+
+</layout>
