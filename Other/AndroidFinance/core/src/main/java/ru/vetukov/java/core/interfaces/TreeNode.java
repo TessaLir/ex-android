@@ -25,4 +25,6 @@ public interface TreeNode {
     //TODO: тут может не находиться данный Child
     void removeChild(TreeNode child);   // Удалить дочерний эллемент
 
+    boolean hasChilds();                // Проверяет, есть ли дочерние элементы
+
 }

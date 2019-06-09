@@ -94,6 +94,11 @@ public abstract class AbstractTreeNode implements TreeNode {
         return name;
     }
 
+    @Override
+    public boolean hasChilds() {
+        return !childs.isEmpty();
+    }
+
     public void setName(String name) {
         this.name = name;
     }
