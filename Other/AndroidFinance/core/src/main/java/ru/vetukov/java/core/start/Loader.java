@@ -4,16 +4,56 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Currency;
+import java.util.List;
 
+import ru.vetukov.java.core.dao.impls.StorageDAOImpl;
 import ru.vetukov.java.core.database.SQLiteConnection;
 import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
 import ru.vetukov.java.core.impls.DefaultStorage;
+import ru.vetukov.java.core.interfaces.Storage;
+import ru.vetukov.java.core.interfaces.TreeNode;
 
 public class Loader {
+
+    private static StringBuffer sb;
+    private static int level = 0;
+
     public static void main(String[] args) {
 //        first();
+//        second();
+        List<Storage> storages = new StorageDAOImpl().getAll();
 
+        sb = new StringBuffer();
+
+        for (Storage s : storages) {
+            runStorage(s);
+        }
+
+        System.out.println(sb.toString());
+
+    }
+
+    private static void runStorage(Storage s) {
+        if (!s.hasChilds()) {
+            println(s);
+        }
+        else {
+            println(s);
+            level++;
+            for (TreeNode t : s.getChild()) {
+                runStorage((Storage)t);
+            }
+            level--;
+        }
+    }
+
+    private static void println(Storage s) {
+        for (int i = 0; i < level; i++) sb.append("\t");
+        sb.append(s.getName() + "\n");
+    }
+
+    private static void second() {
         try (
                 Statement stmt = SQLiteConnection.getConnection().createStatement();
                 ResultSet rs = stmt.executeQuery("select * from storage")) {
@@ -24,7 +64,6 @@ public class Loader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private static void first() {
