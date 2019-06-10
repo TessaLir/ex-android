@@ -60,7 +60,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public List<TreeNode> getChild() {
+    public List<TreeNode> getChilds() {
         return childs;
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public TreeNode getChild(long id) {
+    public TreeNode getChilds(long id) {
 
         for (TreeNode child : childs) {
             if (child.getId() == id) {
