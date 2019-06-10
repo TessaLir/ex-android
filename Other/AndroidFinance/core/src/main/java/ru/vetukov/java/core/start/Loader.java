@@ -6,8 +6,10 @@ import java.sql.Statement;
 import java.util.Currency;
 import java.util.List;
 
+import ru.vetukov.java.core.dao.impls.SourceDAOImpl;
 import ru.vetukov.java.core.dao.impls.StorageDAOImpl;
 import ru.vetukov.java.core.database.SQLiteConnection;
+import ru.vetukov.java.core.decorator.SourceSync;
 import ru.vetukov.java.core.decorator.StorageSynchronizer;
 import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
@@ -24,9 +26,17 @@ public class Loader {
 //        first();
 //        second();
 //        third();
+//        four();
 
+        SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
+        sourceSync.getAll();
+
+
+    }
+
+    private static void four() {
         StorageSynchronizer storageSync = new StorageSynchronizer(new StorageDAOImpl());
-        DefaultStorage tmpStore = (DefaultStorage) storageSync.getAll().get(1).getChild().get(0);
+        DefaultStorage tmpStore = (DefaultStorage) storageSync.getAll().get(1).getChilds().get(0);
 
         try {
             storageSync.addCurrency(tmpStore, Currency.getInstance("USD"));
@@ -34,8 +44,6 @@ public class Loader {
         } catch (CurrencyException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private static void runStorage(Storage s) {
@@ -45,7 +53,7 @@ public class Loader {
         else {
             println(s);
             level++;
-            for (TreeNode t : s.getChild()) {
+            for (TreeNode t : s.getChilds()) {
                 runStorage((Storage)t);
             }
             level--;
