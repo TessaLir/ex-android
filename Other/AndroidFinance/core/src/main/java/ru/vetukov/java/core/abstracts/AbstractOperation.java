@@ -6,24 +6,24 @@ public abstract class AbstractOperation {
 
     private long id;
     private Calendar dateTime;
-    private String addInfo;
+    private String description;
 
     public AbstractOperation() {
     }
 
-    public AbstractOperation(long id, Calendar dateTime, String addInfo) {
+    public AbstractOperation(long id, Calendar dateTime, String description) {
         this.id = id;
         this.dateTime = dateTime;
-        this.addInfo = addInfo;
+        this.description = description;
     }
 
     public AbstractOperation(long id) {
         this.id = id;
     }
 
-    public AbstractOperation(Calendar dateTime, String addInfo) {
+    public AbstractOperation(Calendar dateTime, String description) {
         this.dateTime = dateTime;
-        this.addInfo = addInfo;
+        this.description = description;
     }
 
     public long getId() {
@@ -42,11 +42,11 @@ public abstract class AbstractOperation {
         this.dateTime = dateTime;
     }
 
-    public String getAddInfo() {
-        return addInfo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAddInfo(String addInfo) {
-        this.addInfo = addInfo;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
