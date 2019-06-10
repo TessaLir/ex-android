@@ -13,9 +13,9 @@ public interface TreeNode {
     TreeNode getParent();               // Получить родителя
 
     //TODO: тут может не находиться данный Child
-    TreeNode getChild(long id);         // Получить дочерний эллемент
+    TreeNode getChilds(long id);         // Получить дочерний эллемент
 
-    List<TreeNode> getChild();          // Получить лист всех дочерних эллементов
+    List<TreeNode> getChilds();          // Получить лист всех дочерних эллементов
 
     void addChild(TreeNode child);      // Добмавить дочерний эллемент
 

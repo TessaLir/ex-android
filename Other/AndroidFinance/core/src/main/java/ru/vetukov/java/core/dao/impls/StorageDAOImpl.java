@@ -51,7 +51,7 @@ public class StorageDAOImpl implements StorageDAO {
     }
 
     @Override
-    public boolean updateCurrency(Storage storage, BigDecimal amount) {
+    public boolean updateCurrency(Storage storage, Currency currency, BigDecimal amount) {
         return false;
     }
 

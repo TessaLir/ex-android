@@ -6,8 +6,11 @@ import java.sql.Statement;
 import java.util.Currency;
 import java.util.List;
 
+import ru.vetukov.java.core.dao.impls.SourceDAOImpl;
 import ru.vetukov.java.core.dao.impls.StorageDAOImpl;
 import ru.vetukov.java.core.database.SQLiteConnection;
+import ru.vetukov.java.core.decorator.SourceSync;
+import ru.vetukov.java.core.decorator.StorageSynchronizer;
 import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
 import ru.vetukov.java.core.impls.DefaultStorage;
@@ -22,16 +25,25 @@ public class Loader {
     public static void main(String[] args) {
 //        first();
 //        second();
-        List<Storage> storages = new StorageDAOImpl().getAll();
+//        third();
+//        four();
 
-        sb = new StringBuffer();
+        SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
+        sourceSync.getAll();
 
-        for (Storage s : storages) {
-            runStorage(s);
+
+    }
+
+    private static void four() {
+        StorageSynchronizer storageSync = new StorageSynchronizer(new StorageDAOImpl());
+        DefaultStorage tmpStore = (DefaultStorage) storageSync.getAll().get(1).getChilds().get(0);
+
+        try {
+            storageSync.addCurrency(tmpStore, Currency.getInstance("USD"));
+            System.out.println("Storage.getAll() = " + storageSync.getAll());
+        } catch (CurrencyException e) {
+            e.printStackTrace();
         }
-
-        System.out.println(sb.toString());
-
     }
 
     private static void runStorage(Storage s) {
@@ -41,7 +53,7 @@ public class Loader {
         else {
             println(s);
             level++;
-            for (TreeNode t : s.getChild()) {
+            for (TreeNode t : s.getChilds()) {
                 runStorage((Storage)t);
             }
             level--;
@@ -51,19 +63,6 @@ public class Loader {
     private static void println(Storage s) {
         for (int i = 0; i < level; i++) sb.append("\t");
         sb.append(s.getName() + "\n");
-    }
-
-    private static void second() {
-        try (
-                Statement stmt = SQLiteConnection.getConnection().createStatement();
-                ResultSet rs = stmt.executeQuery("select * from storage")) {
-            while (rs.next()) {
-                String line = rs.getInt("id") + " - " + rs.getString("name");
-                System.out.println(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private static void first() {
@@ -90,5 +89,30 @@ public class Loader {
         } catch (AmountException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void second() {
+        try (
+                Statement stmt = SQLiteConnection.getConnection().createStatement();
+                ResultSet rs = stmt.executeQuery("select * from storage")) {
+            while (rs.next()) {
+                String line = rs.getInt("id") + " - " + rs.getString("name");
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void third() {
+        List<Storage> storages = new StorageDAOImpl().getAll();
+
+        sb = new StringBuffer();
+
+        for (Storage s : storages) {
+            runStorage(s);
+        }
+
+        System.out.println(sb.toString());
     }
 }

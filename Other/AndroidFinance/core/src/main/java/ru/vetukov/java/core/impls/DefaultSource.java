@@ -5,7 +5,7 @@ import java.util.List;
 import ru.vetukov.java.core.abstracts.AbstractTreeNode;
 import ru.vetukov.java.core.interfaces.Source;
 import ru.vetukov.java.core.interfaces.TreeNode;
-import ru.vetukov.java.core.objects.OperationType;
+import ru.vetukov.java.core.enums.OperationType;
 
 public class DefaultSource
                             extends AbstractTreeNode

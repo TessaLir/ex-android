@@ -31,7 +31,7 @@ public class TreeConstructor<T extends TreeNode> {
     // рекурсивно проходит по всем дочерним элементам
     private TreeNode recursiveSearch(long parentId, TreeNode child){
         TreeNode nodeResult = null;
-        for (TreeNode node: child.getChild()) {
+        for (TreeNode node: child.getChilds()) {
             if (node.getId() == parentId){
                 nodeResult = node;
             }else if (node.hasChilds()){// если у текущего узло есть свои дочерние элемента - проходим и по ним
