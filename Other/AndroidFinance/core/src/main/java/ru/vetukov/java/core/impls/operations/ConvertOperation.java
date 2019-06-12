@@ -5,55 +5,22 @@ import java.util.Calendar;
 import java.util.Currency;
 
 import ru.vetukov.java.core.abstracts.AbstractOperation;
+import ru.vetukov.java.core.enums.OperationType;
 import ru.vetukov.java.core.interfaces.Storage;
 
+// конвертация - перевод из одного хранилища в другое в разной валюте
 public class ConvertOperation extends AbstractOperation {
 
-    private Storage fromStorage;
-    private Storage toStorage;
-    private Currency fromCurrency;
-    private Currency toCurrency;
-    private BigDecimal fromAmount;
-    private BigDecimal toAmount;
-
-    public ConvertOperation(Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
+    public ConvertOperation() {
+        super(OperationType.CONVERT);
     }
 
-    public ConvertOperation(long id, Calendar dateTime, String addInfo, Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        super(id, dateTime, addInfo);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
-    }
-
-    public ConvertOperation(long id, Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        super(id);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
-    }
-
-    public ConvertOperation(Calendar dateTime, String addInfo, Storage fromStorage, Storage toStorage, Currency fromCurrency, Currency toCurrency, BigDecimal fromAmount, BigDecimal toAmount) {
-        super(dateTime, addInfo);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.fromCurrency = fromCurrency;
-        this.toCurrency = toCurrency;
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
-    }
+    private Storage fromStorage; // откуда конвертируем
+    private Storage toStorage; // куда конвертируем
+    private Currency fromCurrency;// в какой валюте оправили деньги
+    private Currency toCurrency; // в какой валюте получили деньги
+    private BigDecimal fromAmount; // сумма отправки в первой валюте
+    private BigDecimal toAmount; // сумма получения во второй валюте
 
     public Storage getFromStorage() {
         return fromStorage;
