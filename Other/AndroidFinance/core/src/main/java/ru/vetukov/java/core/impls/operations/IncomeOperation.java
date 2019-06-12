@@ -5,50 +5,22 @@ import java.util.Calendar;
 import java.util.Currency;
 
 import ru.vetukov.java.core.abstracts.AbstractOperation;
+import ru.vetukov.java.core.enums.OperationType;
 import ru.vetukov.java.core.interfaces.Source;
 import ru.vetukov.java.core.interfaces.Storage;
 
-//TODO для всех классов создать конструкторы, без поля id, так как оно autoincrement
+// доход
 public class IncomeOperation extends AbstractOperation {
 
-    private Source fromSource;
-    private Storage toStorage;
-    private BigDecimal amount;
-    private Currency currency;
-
     public IncomeOperation() {
+        super(OperationType.INCOME);
     }
 
-    public IncomeOperation(Calendar dateTime, String addInfo, Source fromSource, Storage toStorage, BigDecimal amount, Currency currency) {
-        super(dateTime, addInfo);
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
-    }
 
-    public IncomeOperation(Source fromSource, Storage toStorage, BigDecimal amount, Currency currency) {
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
-    }
-
-    public IncomeOperation(long id, Calendar dateTime, String addInfo, Source fromSource, Storage toStorage, BigDecimal amount, Currency currency) {
-        super(id, dateTime, addInfo);
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
-    }
-
-    public IncomeOperation(long id, Source fromSource, Storage toStorage, BigDecimal amount, Currency currency) {
-        super(id);
-        this.fromSource = fromSource;
-        this.toStorage = toStorage;
-        this.amount = amount;
-        this.currency = currency;
-    }
+    private Source fromSource; // откула пришли деньги
+    private Storage toStorage; // куда положили деньги
+    private BigDecimal fromAmount; // сумма получения
+    private Currency fromCurrency; // в какой валюте получили деньги
 
     public Source getFromSource() {
         return fromSource;
@@ -66,19 +38,19 @@ public class IncomeOperation extends AbstractOperation {
         this.toStorage = toStorage;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getFromAmount() {
+        return fromAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setFromAmount(BigDecimal fromAmount) {
+        this.fromAmount = fromAmount;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public Currency getFromCurrency() {
+        return fromCurrency;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
+    public void setFromCurrency(Currency fromCurrency) {
+        this.fromCurrency = fromCurrency;
     }
 }

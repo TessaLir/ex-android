@@ -17,9 +17,10 @@ public class SQLiteConnection {
             // Создание подключения к базе данных по пути, указанному в урле
             String url = "jdbc:sqlite:d:\\data\\AndroidFinance\\money.db";
 
-            if (con == null)
+            if (con == null) {
                 con = DriverManager.getConnection(url);
-
+            }
+            con.createStatement().execute("PRAGMA foreign_keys = ON");
             return con;
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
             Logger.getLogger(SQLiteConnection.class.getName()).log(Level.SEVERE, null, e);

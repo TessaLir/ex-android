@@ -5,19 +5,19 @@ import java.util.List;
 import ru.vetukov.java.core.interfaces.TreeNode;
 
 // Построитель дерева
-public class TreeConstructor<T extends TreeNode> {
+public class TreeUtils<T extends TreeNode> {
 
     // встраивает новый элемент в нужное место дерева: суть в том, что нужно найти родительский элемент для объекта newNode
     public void addToTree(long parentId, T newNode, List<T> storageList) {
         if (parentId!=0){
             for (T currentNode: storageList) {// искать сначала во всех корневых объектах
                 if (currentNode.getId()==parentId){
-                    currentNode.addChild(newNode);
+                    currentNode.add(newNode);
                     return;
                 }else {// если среди корневых элементов не найдены родители
                     TreeNode node = recursiveSearch(parentId, currentNode);// проходим по всем уровням дочерних элементов
                     if (node!=null){// если нашли среди дочерних элементов
-                        node.addChild(newNode);
+                        node.add(newNode);
                         return;
                     }
                 }

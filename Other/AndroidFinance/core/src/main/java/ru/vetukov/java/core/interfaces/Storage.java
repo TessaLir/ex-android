@@ -17,12 +17,11 @@ public interface Storage extends TreeNode {
     BigDecimal getApproxAmount(Currency currency) throws CurrencyException;                                 // Примерный остаток в переводе денег в одну валюту
 
     // Изменение баланса
-    void changeAmount(BigDecimal amount, Currency currency) throws CurrencyException;                       // Изменение баланса по определенной валюте
-    void addAmount(BigDecimal amount, Currency currency) throws CurrencyException;                          // Добавить сумму в валюте
-    void expenseAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException;     // Отнять сумму в валюте
+    void updateAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException;
+        // Изменение баланса.
 
     // Работа в валютой
-    void addCurrency(Currency currency) throws CurrencyException;                                           // Добавить новую валюту в хранилище
+    void addCurrency(Currency currency, BigDecimal initAmount) throws CurrencyException;                                           // Добавить новую валюту в хранилище
     void  deleteCurrency(Currency currency) throws CurrencyException;                                       // Удалить валюту из хранилища
     Currency getCurrency(String code) throws CurrencyException;                                             // Получить валюту по коду
     List<Currency> getAvailableCurrencies();                                                                // Получить все доступные вылюты хранилища в отдельной коллекции

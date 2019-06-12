@@ -13,7 +13,15 @@ public abstract class AbstractTreeNode implements TreeNode {
     private String name;
     private TreeNode parent;
     private List<TreeNode> childs = new ArrayList<>();
+    private long parentId;
 
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
 
     public AbstractTreeNode() {}
 
@@ -38,7 +46,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public void addChild(TreeNode child) {
+    public void add(TreeNode child) {
         child.setParent(this);
         childs.add(child);
     }
@@ -54,7 +62,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public void removeChild(TreeNode child) {
+    public void remove(TreeNode child) {
         child.setParent(null);
         childs.remove(child);
     }
@@ -102,4 +110,11 @@ public abstract class AbstractTreeNode implements TreeNode {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean hasParent() {
+        return parent != null;
+    }
+
+
 }

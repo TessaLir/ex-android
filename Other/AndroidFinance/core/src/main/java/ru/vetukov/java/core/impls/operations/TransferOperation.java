@@ -5,45 +5,20 @@ import java.util.Calendar;
 import java.util.Currency;
 
 import ru.vetukov.java.core.abstracts.AbstractOperation;
+import ru.vetukov.java.core.enums.OperationType;
 import ru.vetukov.java.core.interfaces.Storage;
 
-public class TransferOperation extends AbstractOperation {
+// перевод из одного хранилища в другое в одной валюте
+public class TransferOperation extends AbstractOperation{
 
-    private Storage fromStorage;
-    private Storage toStorage;
-    private BigDecimal amoount;
-    private Currency currency;
-
-    public TransferOperation(Storage fromStorage, Storage toStorage, BigDecimal amoount, Currency currency) {
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.amoount = amoount;
-        this.currency = currency;
+    public TransferOperation() {
+        super(OperationType.TRANSFER);
     }
 
-    public TransferOperation(long id, Calendar dateTime, String addInfo, Storage fromStorage, Storage toStorage, BigDecimal amoount, Currency currency) {
-        super(id, dateTime, addInfo);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.amoount = amoount;
-        this.currency = currency;
-    }
-
-    public TransferOperation(long id, Storage fromStorage, Storage toStorage, BigDecimal amoount, Currency currency) {
-        super(id);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.amoount = amoount;
-        this.currency = currency;
-    }
-
-    public TransferOperation(Calendar dateTime, String addInfo, Storage fromStorage, Storage toStorage, BigDecimal amoount, Currency currency) {
-        super(dateTime, addInfo);
-        this.fromStorage = fromStorage;
-        this.toStorage = toStorage;
-        this.amoount = amoount;
-        this.currency = currency;
-    }
+    private Storage fromStorage;// откуда переводим
+    private Storage toStorage; // куда переводим
+    private BigDecimal fromAmount;// сумма перевода
+    private Currency fromCurrency;// в какой валюте получили деньги
 
     public Storage getFromStorage() {
         return fromStorage;
@@ -61,19 +36,19 @@ public class TransferOperation extends AbstractOperation {
         this.toStorage = toStorage;
     }
 
-    public BigDecimal getAmoount() {
-        return amoount;
+    public BigDecimal getFromAmount() {
+        return fromAmount;
     }
 
-    public void setAmoount(BigDecimal amoount) {
-        this.amoount = amoount;
+    public void setFromAmount(BigDecimal fromAmount) {
+        this.fromAmount = fromAmount;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public Currency getFromCurrency() {
+        return fromCurrency;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
+    public void setFromCurrency(Currency fromCurrency) {
+        this.fromCurrency = fromCurrency;
     }
 }

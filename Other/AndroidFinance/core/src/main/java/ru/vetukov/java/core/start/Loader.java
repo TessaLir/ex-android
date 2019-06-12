@@ -4,115 +4,64 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Currency;
-import java.util.List;
 
+import ru.vetukov.java.core.dao.impls.OperationDAOImpl;
 import ru.vetukov.java.core.dao.impls.SourceDAOImpl;
 import ru.vetukov.java.core.dao.impls.StorageDAOImpl;
 import ru.vetukov.java.core.database.SQLiteConnection;
+import ru.vetukov.java.core.decorator.OperationSync;
 import ru.vetukov.java.core.decorator.SourceSync;
-import ru.vetukov.java.core.decorator.StorageSynchronizer;
+import ru.vetukov.java.core.decorator.StorageSync;
+import ru.vetukov.java.core.enums.OperationType;
 import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
+import ru.vetukov.java.core.impls.DefaultSource;
 import ru.vetukov.java.core.impls.DefaultStorage;
+import ru.vetukov.java.core.interfaces.Source;
 import ru.vetukov.java.core.interfaces.Storage;
 import ru.vetukov.java.core.interfaces.TreeNode;
 
 public class Loader {
 
-    private static StringBuffer sb;
-    private static int level = 0;
-
     public static void main(String[] args) {
-//        first();
-//        second();
-//        third();
-//        four();
-
+        StorageSync storageSync = new StorageSync(new StorageDAOImpl());
         SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
-        sourceSync.getAll();
+        OperationSync operationSync = new OperationSync(new OperationDAOImpl(sourceSync.getIdentityMap(), storageSync.getIdentityMap()), sourceSync, storageSync);
 
+//        testSource(sourceSync);
 
-    }
+        DefaultStorage storage = new DefaultStorage("def store");
 
-    private static void four() {
-        StorageSynchronizer storageSync = new StorageSynchronizer(new StorageDAOImpl());
-        DefaultStorage tmpStore = (DefaultStorage) storageSync.getAll().get(1).getChilds().get(0);
+        Storage parentStorage = storageSync.get(10);
 
         try {
-            storageSync.addCurrency(tmpStore, Currency.getInstance("USD"));
-            System.out.println("Storage.getAll() = " + storageSync.getAll());
-        } catch (CurrencyException e) {
-            e.printStackTrace();
-        }
-    }
+            storage.addCurrency(Currency.getInstance("USD"), new BigDecimal(145));
+            storage.addCurrency(Currency.getInstance("RUB"), new BigDecimal(199));
 
-    private static void runStorage(Storage s) {
-        if (!s.hasChilds()) {
-            println(s);
-        }
-        else {
-            println(s);
-            level++;
-            for (TreeNode t : s.getChilds()) {
-                runStorage((Storage)t);
-            }
-            level--;
-        }
-    }
+            storage.setParent(parentStorage);
 
-    private static void println(Storage s) {
-        for (int i = 0; i < level; i++) sb.append("\t");
-        sb.append(s.getName() + "\n");
-    }
+            storageSync.add(storage);
 
-    private static void first() {
-        try {
-            DefaultStorage storage = new DefaultStorage();
+            storageSync.deleteCurrency(storage, Currency.getInstance("USD"));
 
-            Currency currencyESD = Currency.getInstance("USD");
-            Currency currencyRUB = Currency.getInstance("RUB");
-
-            storage.addCurrency(currencyRUB);
-            storage.addCurrency(currencyESD);
-
-            storage.addAmount(new BigDecimal(100), currencyRUB);
-            storage.addAmount(new BigDecimal(150), currencyRUB);
-
-            storage.expenseAmount(new BigDecimal(150), currencyRUB);
-
-            System.out.println(storage.getAmount(currencyRUB));
-            System.out.println("storage = " + storage.getAvailableCurrencies());
-
-
-        } catch (CurrencyException e) {
-            e.printStackTrace();
-        } catch (AmountException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void second() {
-        try (
-                Statement stmt = SQLiteConnection.getConnection().createStatement();
-                ResultSet rs = stmt.executeQuery("select * from storage")) {
-            while (rs.next()) {
-                String line = rs.getInt("id") + " - " + rs.getString("name");
-                System.out.println(line);
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
-    private static void third() {
-        List<Storage> storages = new StorageDAOImpl().getAll();
+    private static void testSource(SourceSync sourceSync) {
+        Source parentSource = sourceSync.get(4);
 
-        sb = new StringBuffer();
+        DefaultSource s = new DefaultSource("test source");
+//        s.setOperationType(OperationType.OUTCOME);
+        s.setParent(parentSource);
 
-        for (Storage s : storages) {
-            runStorage(s);
-        }
-
-        System.out.println(sb.toString());
+        sourceSync.add(s);
+        System.out.println("sourceSync = " + sourceSync.getAll());
+        System.out.println("---");
     }
+
+
 }
