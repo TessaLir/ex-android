@@ -46,7 +46,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public void addChild(TreeNode child) {
+    public void add(TreeNode child) {
         child.setParent(this);
         childs.add(child);
     }
@@ -110,4 +110,11 @@ public abstract class AbstractTreeNode implements TreeNode {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean hasParent() {
+        return parent != null;
+    }
+
+
 }
