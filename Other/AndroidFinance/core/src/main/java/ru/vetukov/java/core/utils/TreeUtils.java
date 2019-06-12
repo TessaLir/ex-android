@@ -12,12 +12,12 @@ public class TreeUtils<T extends TreeNode> {
         if (parentId!=0){
             for (T currentNode: storageList) {// искать сначала во всех корневых объектах
                 if (currentNode.getId()==parentId){
-                    currentNode.addChild(newNode);
+                    currentNode.add(newNode);
                     return;
                 }else {// если среди корневых элементов не найдены родители
                     TreeNode node = recursiveSearch(parentId, currentNode);// проходим по всем уровням дочерних элементов
                     if (node!=null){// если нашли среди дочерних элементов
-                        node.addChild(newNode);
+                        node.add(newNode);
                         return;
                     }
                 }

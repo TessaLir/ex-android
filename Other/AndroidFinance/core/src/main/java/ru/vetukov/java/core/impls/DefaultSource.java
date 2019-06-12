@@ -47,7 +47,7 @@ public class DefaultSource
     }
 
     @Override
-    public void addChild(TreeNode child) {
+    public void add(TreeNode child) {
 
         //TODO: применить паттерн
         //      для дочернего эллемента устанавливаем
@@ -56,6 +56,14 @@ public class DefaultSource
             ((DefaultSource)child).setOperationType(operationType);
         }
 
-        super.addChild(child);
+        super.add(child);
+    }
+
+    @Override
+    public void setParent(TreeNode parent) {
+        if (parent instanceof  DefaultSource) {
+            operationType = ((DefaultSource)parent).getOperationType();// при установке родителся, автоматически проставляется  дочернего элемента родитель
+        }
+        super.setParent(parent);
     }
 }
