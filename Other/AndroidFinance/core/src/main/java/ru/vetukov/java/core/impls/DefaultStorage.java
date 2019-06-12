@@ -14,124 +14,128 @@ import ru.vetukov.java.core.interfaces.Storage;
 
 public class DefaultStorage extends AbstractTreeNode implements Storage {
 
-
-    // Инициализируем пустые коллекции, потому что хоть одна валюта, но будет.
-    private Map<Currency, BigDecimal> currencyAmount = new HashMap<>();
+    // сразу инициализируем пустые коллекции, потому что хоть одна валюта будет
+    private Map<Currency, BigDecimal> currencyAmounts = new HashMap<>();
     private List<Currency> currencyList = new ArrayList<>();
 
-    public DefaultStorage() {}
+
+    public DefaultStorage() {
+    }
 
     public DefaultStorage(String name) {
         super(name);
     }
 
-    public DefaultStorage(long id, String name) {
+    public DefaultStorage(String name, long id) {
         super(id, name);
     }
 
-    public DefaultStorage(List<Currency> currencyList, Map<Currency, BigDecimal> currencyAmount, String name) {
+    public DefaultStorage(List<Currency> currencyList, Map<Currency, BigDecimal> currencyAmounts, String name) {
         super(name);
         this.currencyList = currencyList;
-        this.currencyAmount = currencyAmount;
+        this.currencyAmounts = currencyAmounts;
     }
-    public DefaultStorage(Map<Currency, BigDecimal> currencyAmount) {
-        this.currencyAmount = currencyAmount;
+
+    public DefaultStorage(Map<Currency, BigDecimal> currencyAmounts) {
+        this.currencyAmounts = currencyAmounts;
+    }
+
+    public DefaultStorage(List<Currency> currencyList) {
+        this.currencyList = currencyList;
     }
 
 
     @Override
     public Map<Currency, BigDecimal> getCurrencyAmount() {
-        return currencyAmount;
+        return currencyAmounts;
     }
 
-    public void setCurrencyAmount(Map<Currency, BigDecimal> currwncyAmount) {
-        this.currencyAmount = currwncyAmount;
+    public void setCurrencyAmounts(Map<Currency, BigDecimal> currencyAmounts) {
+        this.currencyAmounts = currencyAmounts;
     }
+
+
+    @Override
+    public BigDecimal getAmount(Currency currency) throws CurrencyException {
+//        checkCurrencyExist(currency); // в Spring через AOP легче внедрять повторяющиеся участки кода
+        return currencyAmounts.get(currency);
+    }
+
+
+    @Override
+    public void updateAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException {
+        checkCurrencyExist(currency);
+        checkAmount(amount);// не даем балансу уйти в минус
+        currencyAmounts.put(currency, amount);
+    }
+
+
+    // проверка, есть ли такая валюта в данном хранилище
+    private void checkCurrencyExist(Currency currency) throws CurrencyException {
+        if (!currencyAmounts.containsKey(currency)) {
+            throw new CurrencyException("Currency " + currency + " not exist");
+        }
+    }
+
+
+
+
+
+    // сумма не должна быть меньше нуля (в реальности такое невозможно, мы не можем потратить больше того, что есть)
+    private void checkAmount(BigDecimal amount) throws AmountException {
+
+//        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+//            throw new AmountException("Amount can't be < 0");
+//        }
+
+    }
+
+
+    @Override
+    public void addCurrency(Currency currency, BigDecimal initAmount) throws CurrencyException {
+
+        if (currencyAmounts.containsKey(currency)) {
+            throw new CurrencyException("Currency already exist");// пока просто сообщение на англ, без локализации
+        }
+
+        currencyList.add(currency);
+        currencyAmounts.put(currency, initAmount);
+
+    }
+
+    @Override
+    public void deleteCurrency(Currency currency) throws CurrencyException {
+
+        checkCurrencyExist(currency);
+
+        // не даем удалять валюту, если в хранилище есть деньги по этой валюте
+//        if (!currencyAmounts.get(currency).equals(BigDecimal.ZERO)) {
+//            throw new CurrencyException("Can't delete currency with amount");
+//        }
+
+        currencyAmounts.remove(currency);
+        currencyList.remove(currency);
+
+    }
+
 
     @Override
     public List<Currency> getAvailableCurrencies() {
         return currencyList;
     }
 
-    public void setAcailableCurrencies(List<Currency> acailableCurrencies) {
-        this.currencyList = acailableCurrencies;
-    }
-
-
-    @Override
-    public BigDecimal getAmount(Currency currency) throws CurrencyException {
-        checkCurrencyExist(currency); // в Spring через АОР легче внедрять повторяющиеся участки кода
-        return currencyAmount.get(currency);
-    }
 
     @Override
     public BigDecimal getApproxAmount(Currency currency) {
-        //TODO: реализовать расчет остатка с приведением в одну валюту реализуем позже
-        throw new UnsupportedOperationException("Not implemented.");
-    }
-
-    @Override
-    public void changeAmount(BigDecimal amount, Currency currency) throws CurrencyException {
-        checkCurrencyExist(currency);
-        currencyAmount.put(currency, amount);
-    }
-
-    @Override
-    public void addAmount(BigDecimal amount, Currency currency) throws CurrencyException {
-        checkCurrencyExist(currency);
-        BigDecimal oldAmount = currencyAmount.get(currency);
-        currencyAmount.put(currency, oldAmount.add(amount));
-    }
-
-    private void checkCurrencyExist(Currency currency) throws CurrencyException {
-        if (!currencyAmount.containsKey(currency)) {
-            throw new CurrencyException("Currency "+currency+" not exist");
-        }
-    }
-
-    @Override
-    public void expenseAmount(BigDecimal amount, Currency currency) throws CurrencyException, AmountException {
-        checkCurrencyExist(currency);
-
-        BigDecimal oldAmount = currencyAmount.get(currency);
-        BigDecimal newValue = oldAmount.subtract(amount);
-        checkAmount(newValue);
-        currencyAmount.put(currency, newValue);
-    }
-
-    private void checkAmount(BigDecimal amount) throws AmountException {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new AmountException("Amount can't be < 0");
-        }
-    }
-
-    @Override
-    public void addCurrency(Currency currency) throws CurrencyException {
-        if (currencyAmount.containsKey(currency)) {
-            throw new CurrencyException("Currency already exist");// пока просто сообщение на англ, без локализации
-        }
-        currencyList.add(currency);
-        currencyAmount.put(currency, BigDecimal.ZERO);
-
-    }
-
-    @Override
-    public void deleteCurrency(Currency currency) throws CurrencyException {
-        checkCurrencyExist(currency);
-
-        // не даем удалять валюту, если в хранилище есть деньги по этой валюте
-        if (!currencyAmount.get(currency).equals(BigDecimal.ZERO)) {
-            throw new CurrencyException("Can't delete currency with amount");
-        }
-
-        currencyAmount.remove(currency);
-        currencyList.remove(currency);
+        // TODO реализовать расчет остатка с приведением в одну валюту
+        // реализуем позже
+        throw new UnsupportedOperationException("Not implemented");
 
     }
 
     @Override
     public Currency getCurrency(String code) throws CurrencyException {
-        // количество валют для каждого хранилища бует небольшим - поэтому можно проводить поиск через цикл
+        // количество валют для каждого хранилища будет небольшим - поэтому можно провоить поиск через цикл
         // можно использовать библиотеку Apache Commons Collections
 
         for (Currency currency : currencyList) {
@@ -140,6 +144,7 @@ public class DefaultStorage extends AbstractTreeNode implements Storage {
             }
         }
 
-        throw new CurrencyException("Currency (code=" + code + ") not exist in storage.");
+        throw new CurrencyException("Currency (code=" + code + ") not exist in storage");
+
     }
 }

@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import ru.vetukov.java.core.dao.interfaces.StorageDAO;
+import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
 import ru.vetukov.java.core.interfaces.Storage;
 import ru.vetukov.java.core.utils.TreeUtils;
 
 // синхронизирует все действия между объектами коллекции и базой данных
 // паттерн Декоратор (измененный)
-public class StorageSync implements StorageDAO{
+public class StorageSync implements StorageDAO {
 
     private TreeUtils<Storage> treeUtils = new TreeUtils();// построитель дерева
 
@@ -65,18 +66,52 @@ public class StorageSync implements StorageDAO{
     public boolean delete(Storage storage) {
         // TODO добавить нужные Exceptions
         if (storageDAO.delete(storage)) {
-            identityMap.remove(storage.getId());
-            if (storage.getParent()!=null) {// если удаляем дочерний элемент
-                storage.getParent().remove(storage);// т.к. у каждого дочернего элемента есть ссылка на родительский - можно быстро удалять элемент из дерева без поиска по всему дереву
-            }else{// если удаляем элемент, у которого нет родителей
-                treeList.remove(storage);
-            }
+            removeFromCollections(storage);
 
             return true;
         }
         return false;
     }
 
+
+    // добавляет объект во все коллекции
+    private void addToCollections(Storage storage) {
+        identityMap.put(storage.getId(), storage);
+
+        if (storage.hasParent()) {
+            if (!storage.getParent().getChilds().contains(storage)) {// если ранее не был добавлен уже
+                storage.getParent().add(storage);
+            }
+        } else {// если добавляем элемент, у которого нет родителей (корневой)
+            treeList.add(storage);
+        }
+    }
+
+
+
+
+    // удаляет объект из всех коллекций
+    private void removeFromCollections(Storage storage) {
+        identityMap.remove(storage.getId());
+        if (storage.getParent() != null) {// если удаляем дочерний элемент
+            storage.getParent().remove(storage);// т.к. у каждого дочернего элемента есть ссылка на родительский - можно быстро удалять элемент из дерева без поиска по всему дереву
+        } else {// если удаляем элемент, у которого нет родителей
+            treeList.remove(storage);
+        }
+    }
+
+    @Override
+    public boolean add(Storage storage) {
+
+        if (storageDAO.add(storage)) {// если в БД добавилось нормально
+            addToCollections(storage);
+            return true;
+        }else{// откатываем добавление
+            // для отката можно использовать паттерн Command (для функции Undo)
+        }
+
+        return false;
+    }
 
 
     // если понадобится напрямую получить объекты из БД - можно использовать storageDAO
@@ -86,9 +121,9 @@ public class StorageSync implements StorageDAO{
 
 
     @Override
-    public boolean addCurrency(Storage storage, Currency currency) throws CurrencyException {
-        if (storageDAO.addCurrency(storage, currency)) {// если в БД добавилось нормально
-            storage.addCurrency(currency);
+    public boolean addCurrency(Storage storage, Currency currency, BigDecimal initAmount) throws CurrencyException {
+        if (storageDAO.addCurrency(storage, currency, initAmount)) {// если в БД добавилось нормально
+            storage.addCurrency(currency, initAmount);
             return true;
         }
 
@@ -97,7 +132,7 @@ public class StorageSync implements StorageDAO{
 
     @Override
     public boolean deleteCurrency(Storage storage, Currency currency) throws CurrencyException {
-        if (storageDAO.deleteCurrency(storage, currency)) {// если в БД добавилось нормально
+        if (storageDAO.deleteCurrency(storage, currency)) {// если в БД удалилось нормально
             storage.deleteCurrency(currency);
             return true;
         }
@@ -108,9 +143,20 @@ public class StorageSync implements StorageDAO{
     @Override
     public boolean updateAmount(Storage storage, Currency currency, BigDecimal amount) {
         if (storageDAO.updateAmount(storage, currency, amount)) {
+            try {
+                storage.updateAmount(amount, currency);
+            } catch (CurrencyException e) {
+                e.printStackTrace();
+            } catch (AmountException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
         return false;
+    }
+
+    public Map<Long, Storage> getIdentityMap() {
+        return identityMap;
     }
 }
