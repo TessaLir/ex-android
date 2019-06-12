@@ -10,19 +10,27 @@ public interface TreeNode {
 
     long getId();                       // Каждый эллемент дерева должен иметь свой уникальный идентификатор
 
+    void setId(long id);                // Установить id
+
     TreeNode getParent();               // Получить родителя
 
+    long getParentId();
+
     //TODO: тут может не находиться данный Child
-    TreeNode getChild(long id);         // Получить дочерний эллемент
+    TreeNode getChilds(long id);         // Получить дочерний эллемент
 
-    List<TreeNode> getChild();          // Получить лист всех дочерних эллементов
+    List<TreeNode> getChilds();          // Получить лист всех дочерних эллементов
 
-    void addChild(TreeNode child);      // Добмавить дочерний эллемент
+    void add(TreeNode child);      // Добмавить дочерний эллемент
 
     //TODO: Тут нужна проверка, не лежит ли потенциальный родитель ниже по дереву.
     void setParent(TreeNode parent);    // назначить родителя
 
     //TODO: тут может не находиться данный Child
-    void removeChild(TreeNode child);   // Удалить дочерний эллемент
+    void remove(TreeNode child);   // Удалить дочерний эллемент
+
+    boolean hasChilds();                // Проверяет, есть ли дочерние элементы
+
+    boolean hasParent();                // Проверяет, есть ли родитель
 
 }
