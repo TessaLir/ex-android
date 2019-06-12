@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import ru.vetukov.java.core.enums.OperationType;
 
-public interface Operation {
+public interface Operation extends Comparable<Operation> {
 
     long getId();
 

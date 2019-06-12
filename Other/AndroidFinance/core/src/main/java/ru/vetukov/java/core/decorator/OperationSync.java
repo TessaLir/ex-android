@@ -1,6 +1,8 @@
 package ru.vetukov.java.core.decorator;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +68,7 @@ public class OperationSync implements OperationDAO {
 
     @Override
     public List<Operation> getAll() {
+        Collections.sort(operationList); // перед показом, сортируем по дате.
         return operationList;
     }
 
@@ -76,7 +79,8 @@ public class OperationSync implements OperationDAO {
 
     @Override
     public boolean update(Operation operation) {
-        if (operationDAO.update(operation)) {
+        if (delete(operationDAO.get(operation.getId())) // Старые удаляем
+                && add(operation)) {    // добавляем новые
             return true;
         }
         return false;
