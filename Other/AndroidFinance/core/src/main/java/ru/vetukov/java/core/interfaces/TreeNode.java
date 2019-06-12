@@ -12,6 +12,8 @@ public interface TreeNode {
 
     TreeNode getParent();               // Получить родителя
 
+    long getParentId();
+
     //TODO: тут может не находиться данный Child
     TreeNode getChilds(long id);         // Получить дочерний эллемент
 
@@ -23,7 +25,7 @@ public interface TreeNode {
     void setParent(TreeNode parent);    // назначить родителя
 
     //TODO: тут может не находиться данный Child
-    void removeChild(TreeNode child);   // Удалить дочерний эллемент
+    void remove(TreeNode child);   // Удалить дочерний эллемент
 
     boolean hasChilds();                // Проверяет, есть ли дочерние элементы
 

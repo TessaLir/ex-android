@@ -10,7 +10,7 @@ public interface StorageDAO extends CommonDAO<Storage>{
 
     // boolean - что бы удостовериться, что операция  прошла успешно.
     boolean addCurrency(Storage storage, Currency currency) throws CurrencyException;
-    boolean updateCurrency(Storage storage, Currency currency, BigDecimal amount); // Тут и прибавить, и отнять, и обновить.
+    boolean updateAmount(Storage storage, Currency currency, BigDecimal amount); // Тут и прибавить, и отнять, и обновить.
     boolean deleteCurrency(Storage storage, Currency currency) throws CurrencyException;
 
 }
