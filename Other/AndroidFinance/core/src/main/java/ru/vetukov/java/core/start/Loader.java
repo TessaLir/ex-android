@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Currency;
-import java.util.List;
 
 import ru.vetukov.java.core.dao.impls.SourceDAOImpl;
 import ru.vetukov.java.core.dao.impls.StorageDAOImpl;
 import ru.vetukov.java.core.database.SQLiteConnection;
 import ru.vetukov.java.core.decorator.SourceSync;
-import ru.vetukov.java.core.decorator.StorageSynchronizer;
+import ru.vetukov.java.core.decorator.StorageSync;
 import ru.vetukov.java.core.exceptions.AmountException;
 import ru.vetukov.java.core.exceptions.CurrencyException;
 import ru.vetukov.java.core.impls.DefaultStorage;
+import ru.vetukov.java.core.interfaces.Source;
 import ru.vetukov.java.core.interfaces.Storage;
 import ru.vetukov.java.core.interfaces.TreeNode;
 
@@ -27,23 +27,47 @@ public class Loader {
 //        second();
 //        third();
 //        four();
+//        fifth();
 
-        SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
-        sourceSync.getAll();
+//        SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
+//        sourceSync.getAll();
+//
+//        Source s = sourceSync.get(11);
+//        sourceSync.delete(s);
+//
+//        Source s2 = sourceSync.get(3);
+//        sourceSync.delete(s2);
+
+
+
+        StorageSync storageSync = new StorageSync(new StorageDAOImpl());
+
+        Storage s = storageSync.get(9);
+
+        try {
+            storageSync.addCurrency(s, Currency.getInstance("USD"));
+        } catch (CurrencyException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
-    private static void four() {
-        StorageSynchronizer storageSync = new StorageSynchronizer(new StorageDAOImpl());
-        DefaultStorage tmpStore = (DefaultStorage) storageSync.getAll().get(1).getChilds().get(0);
+    private static void fifth() {
+        SourceSync sourceSync = new SourceSync(new SourceDAOImpl());
+        sourceSync.getAll();
+    }
 
-        try {
-            storageSync.addCurrency(tmpStore, Currency.getInstance("USD"));
-            System.out.println("Storage.getAll() = " + storageSync.getAll());
-        } catch (CurrencyException e) {
-            e.printStackTrace();
-        }
+    private static void four() {
+//        StorageSync storageSync = new StorageSync(new StorageDAOImpl());
+//        DefaultStorage tmpStore = (DefaultStorage) storageSync.getAll().get(1).getChilds().get(0);
+//
+//        try {
+//            storageSync.addCurrency(tmpStore, Currency.getInstance("USD"));
+//            System.out.println("Storage.getAll() = " + storageSync.getAll());
+//        } catch (CurrencyException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private static void runStorage(Storage s) {
@@ -105,14 +129,14 @@ public class Loader {
     }
 
     private static void third() {
-        List<Storage> storages = new StorageDAOImpl().getAll();
-
-        sb = new StringBuffer();
-
-        for (Storage s : storages) {
-            runStorage(s);
-        }
-
-        System.out.println(sb.toString());
+//        List<Storage> storages = new StorageDAOImpl().getAll();
+//
+//        sb = new StringBuffer();
+//
+//        for (Storage s : storages) {
+//            runStorage(s);
+//        }
+//
+//        System.out.println(sb.toString());
     }
 }
