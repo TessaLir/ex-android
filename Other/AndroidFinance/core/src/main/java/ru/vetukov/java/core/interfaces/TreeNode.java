@@ -8,6 +8,8 @@ public interface TreeNode {
 
     String getName();
 
+    void setName(String name);
+
     long getId();                       // Каждый эллемент дерева должен иметь свой уникальный идентификатор
 
     void setId(long id);                // Установить id

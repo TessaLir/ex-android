@@ -168,8 +168,9 @@ public class OperationDAOImpl implements OperationDAO {
 
 
     @Override
+    // при обновлении не даем менять тип операции - только данные самой операции (дата, суммы, источники, хранилища, описание)
     public boolean update(Operation operation) {
-        return (delete(operation) && add(operation)); // при обновлении, удаляем старую, и добавляем новую.
+        return (delete(operation) && add(operation));// при обновлении - удаляем старую операцию, добавляем новую, т.к. могут поменяться хранилища, источники
     }
 
     @Override
@@ -194,7 +195,7 @@ public class OperationDAOImpl implements OperationDAO {
     public boolean add(Operation operation) {
 
 
-        String sql = createSql(operation.getOperationType()); // подготовить sql с нужными параметрами, в зависимости от типа операции
+        String sql = createInsertSql(operation); // подготовить sql с нужными параметрами, в зависимости от типа операции
 
 
         try (PreparedStatement stmt = SQLiteConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
@@ -268,11 +269,12 @@ public class OperationDAOImpl implements OperationDAO {
     }
 
 
-    private String createSql(OperationType operationType) {
+
+    private String createInsertSql(Operation operation) {
 
         StringBuilder sb = new StringBuilder("insert into " + OPERATION_TABLE + " (datetime, type_id, description, ");// sql собирается частями, в зависимости от типа операции
 
-        switch (operationType) {
+        switch (operation.getOperationType()) {
             case INCOME:
                 return sb.append("from_source_id, from_currency_code, from_amount, to_storage_id) values(?,?,?,?,?,?,?)").toString();
             case OUTCOME:
