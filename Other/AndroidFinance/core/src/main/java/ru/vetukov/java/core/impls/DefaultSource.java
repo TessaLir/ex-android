@@ -52,7 +52,7 @@ public class DefaultSource
         //TODO: применить паттерн
         //      для дочернего эллемента устанавливаем
         //      тип операции родительского эллемента
-        if (child instanceof DefaultStorage) {
+        if (child instanceof DefaultSource) {
             ((DefaultSource)child).setOperationType(operationType);
         }
 
