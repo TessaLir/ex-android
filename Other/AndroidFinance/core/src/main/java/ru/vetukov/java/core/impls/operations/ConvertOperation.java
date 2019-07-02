@@ -14,7 +14,6 @@ public class ConvertOperation extends AbstractOperation {
     public ConvertOperation() {
         super(OperationType.CONVERT);
     }
-
     private Storage fromStorage; // откуда конвертируем
     private Storage toStorage; // куда конвертируем
     private Currency fromCurrency;// в какой валюте оправили деньги
