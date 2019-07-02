@@ -9,23 +9,53 @@ import java.util.logging.Logger;
 public class SQLiteConnection {
 
     private static Connection con;
+    private static String urlConnection;
+    private static String driverClassName;
+
+    //TODO реализовать передачу датасорса, если ядро например будет использоваться для веб приложения
+
+    public static void init(String driverName, String url) {
+        urlConnection = url;
+        driverClassName = driverName;
+        createConnection();
+    }
+
+    private static void createConnection(){
+        try {
+
+//            if (urlConnection==null){
+//                urlConnection = "jdbc:sqlite:c:\\data\\money.db";
+//
+//            }
+//
+//            if (driverClassName==null){
+//                driverClassName = "org.sqlite.JDBC";
+//
+//            }
+
+            Class.forName(driverClassName).newInstance();
+
+            if (con == null) {
+
+                con = DriverManager.getConnection(urlConnection);
+                con.createStatement().execute("PRAGMA foreign_keys = ON");
+                con.createStatement().execute("PRAGMA encoding = \"UTF-8\"");
+            }
+
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(SQLiteConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static Connection getConnection() {
         try {
-            Class.forName("org.sqlite.JDBC").newInstance();
-
-            // Создание подключения к базе данных по пути, указанному в урле
-            String url = "jdbc:sqlite:d:\\data\\AndroidFinance\\money.db";
-
-            if (con == null) {
-                con = DriverManager.getConnection(url);
+            if (con == null || con.isClosed()){
+                createConnection();
             }
-            con.createStatement().execute("PRAGMA foreign_keys = ON");
-            return con;
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-            Logger.getLogger(SQLiteConnection.class.getName()).log(Level.SEVERE, null, e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+        return con;
     }
 
 }

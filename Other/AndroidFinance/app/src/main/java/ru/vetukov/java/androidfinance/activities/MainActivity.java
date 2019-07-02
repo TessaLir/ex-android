@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import ru.vetukov.java.androidfinance.R;
+import ru.vetukov.java.core.database.Initializer;
+import ru.vetukov.java.core.enums.OperationType;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        //TODO Временно
+//        Initializer.getOperationSync().getList(OperationType.INCOME);
     }
 
     @Override
