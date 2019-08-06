@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_margin_standart">20dp</dimen>
+    <dimen name="main_padding_standart">20dp</dimen>
+    <dimen name="main_cb_text_size">25sp</dimen>
+</resources>

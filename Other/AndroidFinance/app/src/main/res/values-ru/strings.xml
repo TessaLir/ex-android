@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AndroidFinance</string>
+    <string name="title_activity_main">Основное окно</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Навигационная шапочка</string>
+
+    <string name="menu_operation">Операции</string>
+    <string name="menu_score">Счет</string>
+    <string name="menu_category">Категории</string>
+    <string name="menu_analitic">Отчеты</string>
+    <string name="menu_settings">Настройка</string>
+    <string name="menu_about">Справка</string>
+    <string name="loading_text">Загрузка</string>
+    <string name="menu_other">Прочее</string>
+</resources>

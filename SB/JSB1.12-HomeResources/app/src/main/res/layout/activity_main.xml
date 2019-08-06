@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_margin"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:textColor="@color/my_button"
+        style="@style/CustomButton.Footer"
+        android:text="@string/main_btn_three"/>
+
+    <Button
+        android:id="@+id/main.button.first"
+        style="@style/CustomButton.Footer"
+        android:layout_alignParentBottom="true"
+        android:text="@string/main_btn_two" />
+
+    <Button
+        android:id="@+id/main.button.second"
+        style="@style/CustomButton"
+        android:textColor="@color/my_button"
+        android:layout_above="@id/main.button.first"
+        android:text="@string/main_btn_one"/>
+
+
+    <TextView
+        android:id="@+id/main.txt.title"
+        android:layout_above="@id/main.txt.text"
+        style="@style/CustomText.Title"
+        android:text="@string/main_text_title"/>
+
+    <TextView
+        android:id="@+id/main.txt.text"
+        style="@style/CustomText"
+        android:text="@string/main_text_text"/>
+
+
+</RelativeLayout>

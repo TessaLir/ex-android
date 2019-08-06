@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/main_padding"
+    tools:context=".MainActivity">
+
+    <ProgressBar
+        android:id="@+id/main.pb.progress"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.left"/>
+
+    <Button
+        android:id="@+id/main.btn.left"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_btn_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main.btn.right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/main_btn_add_text" />
+
+    <Button
+        android:id="@+id/main.btn.right"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_btn_margin"
+        app:layout_constraintStart_toEndOf="@id/main.btn.left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/main_btn_crear_text" />
+
+    <ScrollView
+        android:id="@+id/main.sv.view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/main_btn_margin"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main.btn.left">
+
+        <TextView
+            android:id="@+id/main.tv.output"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            tools:text="some text   some text   some text   some text"/>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
