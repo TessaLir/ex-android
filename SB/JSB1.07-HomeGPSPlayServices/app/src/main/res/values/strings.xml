@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">HomeGPSPlayServices</string>
-    <string name="item_text_longitude">Longitude</string>
-    <string name="item_text_latitude">Latitude</string>
-</resources>

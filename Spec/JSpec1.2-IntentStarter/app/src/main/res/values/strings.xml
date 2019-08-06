@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">IntentStarter</string>
-    <string name="main_et_edit_hint">Command</string>
-    <string name="main_button_text">SUBMIT</string>
-</resources>

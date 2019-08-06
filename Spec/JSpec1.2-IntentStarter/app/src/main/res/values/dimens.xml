@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="main_padding_all">35dp</dimen>
-    <dimen name="main_text_size">35sp</dimen>
-</resources>

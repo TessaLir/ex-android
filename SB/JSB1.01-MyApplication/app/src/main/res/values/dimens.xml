@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="main_text_size">35sp</dimen>
-    <dimen name="main_text_size_small">15sp</dimen>
-    <dimen name="other_margin">5dp</dimen>
-    <dimen name="other_all_padding">10dp</dimen>
-</resources>

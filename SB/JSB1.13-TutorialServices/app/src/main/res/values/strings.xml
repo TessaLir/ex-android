@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">My Application</string>
-    <string name="main_btn_intent">INTENT SERVICE</string>
-    <string name="main_btn_started">STARTED SERVICE</string>
-    <string name="main_btn_bound">BOUND SERVICE</string>
-</resources>

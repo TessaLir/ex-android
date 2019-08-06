@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">TutorialSQLite</string>
-    <string name="main_btn_insert">Insert</string>
-    <string name="main_btn_clear">Clear</string>
-</resources>

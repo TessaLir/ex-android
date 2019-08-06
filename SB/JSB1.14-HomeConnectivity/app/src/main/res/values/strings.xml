@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">HomeConnectivity</string>
-    <string name="main_btn_wifi_text">Set WiFi</string>
-    <string name="main_btn_phone_text">Set phone</string>
-</resources>

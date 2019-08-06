@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">HomeSomeFiles</string>
-    <string name="main_btn_copy_text">Copy!</string>
-    <string name="main_btn_show_text">Show!</string>
-    <string name="main_preview_text">Click to Button \'COPY!\' after click \'SHOW!\'</string>
-    <string name="main_menu_settings_text">Settings</string>
-</resources>

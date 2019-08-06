@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="mail_fab_margin">16dp</dimen>
-    <dimen name="img_size">36dp</dimen>
-    <dimen name="img_padding">10dp</dimen>
-    <dimen name="img_right_margin">10dp</dimen>
-</resources>

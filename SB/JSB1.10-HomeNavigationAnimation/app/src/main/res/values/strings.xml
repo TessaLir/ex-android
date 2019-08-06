@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">HomeNavigationAnimation</string>
-    <string name="fr_main_btn_next_text">NEXT</string>
-    <string name="fr_main_btn_prev_text">PREV</string>
-    <string name="fr_main_number_text">0</string>
-</resources>

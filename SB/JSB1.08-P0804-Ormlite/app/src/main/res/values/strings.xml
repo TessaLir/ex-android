@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Project0804-Ormlite</string>
-    <string name="action_settings">Settings</string>
-    <string name="btn_delete">Delete articles</string>
-    <string name="btn_insert">Insert articles</string>
-</resources>
