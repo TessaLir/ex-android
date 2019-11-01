@@ -42,15 +42,13 @@ public class DBConnection {
     }
 
     private static void copyDataBase(Context context) {
-
-        try (InputStream sourceFile = context.getAssets().open(DB_NAME); // что копируем
-             OutputStream destinationFolder = new FileOutputStream(dbPath); // куда копируем
-        ){
-
+        try {
             // создаем папку databases
             File databaseFolder = new File(dbFolder);
             databaseFolder.mkdir();
 
+            InputStream sourceFile = context.getAssets().open(DB_NAME); // что копируем
+            OutputStream destinationFolder = new FileOutputStream(dbPath); // куда копируем
 
             // копируем по байтам весь файл стандартным способом Java I/O
             byte[] buffer = new byte[1024];
@@ -59,12 +57,14 @@ public class DBConnection {
                 destinationFolder.write(buffer, 0, length);
             }
 
+            sourceFile.close();
+            destinationFolder.close();
+
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 
     }
-
 
     private static boolean checkDataBaseExists() {
         File dbFile = new File(dbPath);

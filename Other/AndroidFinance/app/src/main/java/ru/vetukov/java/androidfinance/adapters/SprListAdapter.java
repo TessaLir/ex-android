@@ -56,6 +56,7 @@ public class SprListAdapter extends RecyclerView.Adapter<SprListAdapter.ViewHold
         public ViewHolder(View view) {
             super(view);
             mTVTitle = view.findViewById(R.id.spr_item_title);
+
         }
 
         @Override

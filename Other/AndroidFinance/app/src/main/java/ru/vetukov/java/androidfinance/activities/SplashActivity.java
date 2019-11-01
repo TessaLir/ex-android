@@ -9,22 +9,26 @@ import ru.vetukov.java.androidfinance.app.DBConnection;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private SplashActivity instance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        instance = this;
+
         new Thread() {
             @Override
             public void run() {
                 // Загрузка начальных данных (операции, справочники)
-                DBConnection.initConnection(getApplicationContext());
+                DBConnection.initConnection(instance);
 
                 // имитация загрузки
                 imitateLoading();
 
                 //после загрузки переходим на главное окно
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(instance, MainActivity.class);
                 startActivity(intent);
             }
         }.start();
